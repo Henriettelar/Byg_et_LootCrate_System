@@ -1,9 +1,13 @@
 import Exceptions.NegativeAmountException;
 import Exceptions.NotEnoughCreditsException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private String username;
     private int credits;
+    private List<String> inventory;
 
 
 
@@ -11,6 +15,7 @@ public class Player {
     public Player(String username, int credits) {
         this.username = username;
         this.credits = credits;
+        this.inventory = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -19,12 +24,31 @@ public class Player {
     public int  getCredits() {
         return credits;
     }
+    public List<String> getInventory() {
+        return inventory;
+    }
 
     public void addCredits(int credits) {
         negativeAmountException(credits);
         this.credits += credits;
         System.out.println("Credits added! " + getUsername() + "'s current credits: " + getCredits());
     }
+
+    public void addItem(String item) {
+        inventory.add(item);
+    }
+
+    public void showInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println(username + " has no items yet.");
+        } else {
+            System.out.println(username + "'s inventory:");
+            for (String item : inventory) {
+                System.out.println("- " + item);
+            }
+        }
+    }
+
 
     public void openLootCrate(LootCrate crate) throws NotEnoughCreditsException {
             checkCredits(credits, crate);

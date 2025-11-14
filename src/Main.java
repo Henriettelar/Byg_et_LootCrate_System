@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         new LootCrate("Normal crate", 20);
-        new LootCrate("Epic crate", 50);
-        new LootCrate("Rare crate", 80);
+        new LootCrate("Rare crate", 50);
+        new LootCrate("Epic crate", 80);
         new LootCrate("Legendary crate", 150);
 
         while (keepRunning) {
@@ -31,8 +31,9 @@ public class Main {
         System.out.println("1. Add player");
         System.out.println("2. List of players");
         System.out.println("3. Add credits to player");
-        System.out.println("4. Crates");
-        System.out.println("5. Exit");
+        System.out.println("4. View player inventory");
+        System.out.println("5. Crates");
+        System.out.println("6. Exit");
         System.out.println("Enter your choice: ");
         int choice = input.nextInt();
         input.nextLine();
@@ -47,9 +48,12 @@ public class Main {
                 addCredits();
                 break;
             case 4:
-                startCrateMenu();
+                showInventory();
                 break;
             case 5:
+                startCrateMenu();
+                break;
+            case 6:
                 keepRunning = false;
                 break;
             default: System.out.println("Invalid choice");
@@ -116,6 +120,21 @@ public class Main {
         players.get(name).addCredits(credits);
     }
 
+    private static void showInventory() {
+        System.out.print("Enter player name: ");
+        String name = input.nextLine();
+
+        try {
+            Player player = findPlayerByName(name);
+            player.showInventory();
+        } catch (PlayerNotFoundException e) {
+            System.out.println("Error: " + name + " not found.");
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+    }
+
+
     private static void seeAvailableLootCrates(){
         LootCrate.ListOfCrates();
     }
@@ -145,6 +164,8 @@ public class Main {
             System.out.println("Error: " + playerName + " not found.");
         } catch (NotEnoughCreditsException e) {
             System.out.println("Error: Not enough credits.");
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
         }
     }
     //Checked exception for at se om spilleren er der

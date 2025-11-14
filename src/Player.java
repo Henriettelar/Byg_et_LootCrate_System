@@ -29,12 +29,12 @@ public class Player {
     public void openLootCrate(LootCrate crate) throws NotEnoughCreditsException {
             checkCredits(credits, crate);
             System.out.println("Crate opened!");
-            credits = credits - crate.getCratePrize(); //Trækker ens credits fra når en crate er åbnet
+            credits = credits - crate.getCratePrice(); //Trækker ens credits fra når en crate er åbnet
     }
 
     //checked exception til at se om der er nok credits
     public static void checkCredits(int credits, LootCrate crate) throws NotEnoughCreditsException {
-        if (credits < crate.getCratePrize()){
+        if (credits < crate.getCratePrice()){
             throw new NotEnoughCreditsException("Must have enough credits to open crate!");
         }
     }

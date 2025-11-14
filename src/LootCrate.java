@@ -14,7 +14,7 @@ public class LootCrate {
         crateList.put(crate, this); //bruges til getCrateByName
     }
 
-    public int getCratePrize(){
+    public int getCratePrice(){
         return credits;
     }
     public String getCrate() {
@@ -24,7 +24,7 @@ public class LootCrate {
         System.out.println("---Available crates---");
         for (Map.Entry<String, LootCrate> entry : crateList.entrySet()) {
             LootCrate crate = entry.getValue();
-            System.out.println("-" + crate.getCrate() + " (" + crate.getCratePrize() + " credits)");
+            System.out.println("-" + crate.getCrate() + " (" + crate.getCratePrice() + " credits)");
         }
     }
 

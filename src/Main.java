@@ -142,9 +142,9 @@ public class Main {
             crate.openCrate(player);
             System.out.println(playerName + " now has " + player.getCredits() + " credits left.");
         } catch (PlayerNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: " + playerName + " not found.");
         } catch (NotEnoughCreditsException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: Not enough credits.");
         }
     }
     //Checked exception for at se om spilleren er der

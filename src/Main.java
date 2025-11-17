@@ -2,6 +2,7 @@ import Exceptions.NotEnoughCreditsException;
 import Exceptions.PlayerNotFoundException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -106,6 +107,9 @@ public class Main {
     }
 
     private static void listPlayers(){
+        if (players.isEmpty()){
+            System.out.println("There are no players added.");
+        }
         for (Player player : players.values()){
             System.out.println(player);
         }
@@ -117,7 +121,9 @@ public class Main {
         String name = input.nextLine();
         System.out.print("Add credits to " + name + ": ");
         int credits = input.nextInt();
-        players.get(name).addCredits(credits);
+        int addedCredits = players.get(name).addCredits(credits);
+        System.out.println("Credits added!");
+        System.out.println(players.get(name) + "'s current credits: " + addedCredits);
     }
 
     private static void showInventory() {
@@ -126,7 +132,17 @@ public class Main {
 
         try {
             Player player = findPlayerByName(name);
-            player.showInventory();
+            List<String> items = player.showInventory();
+
+            if (items.isEmpty()) {
+                System.out.println(player.getUsername() + "'s inventory is empty.");
+            } else {
+                for (String item : items) {
+                    System.out.println("-" + item);
+                }
+            }
+
+
         } catch (PlayerNotFoundException e) {
             System.out.println("Error: " + name + " not found.");
         } catch (Exception e) {
@@ -136,7 +152,11 @@ public class Main {
 
 
     private static void seeAvailableLootCrates(){
-        LootCrate.ListOfCrates();
+        System.out.println("---Available Crates---");
+
+        for (LootCrate crate : LootCrate.ListOfCrates().values()){
+            System.out.println("- " + crate.getCrate() + " (" + crate.getCratePrice() + ")");
+        }
     }
 
     private static void openLootCrate(){
@@ -158,7 +178,9 @@ public class Main {
         //Bruger checked exception til at se om spilleren findes samt se om de har nok credits
         try {
             Player player = findPlayerByName(playerName);
-            crate.openCrate(player);
+            String reward = crate.openCrate(player);
+            System.out.println(crateName + " opened!");
+            System.out.println(playerName + " has received: " + reward);
             System.out.println(playerName + " now has " + player.getCredits() + " credits left.");
         } catch (PlayerNotFoundException e) {
             System.out.println("Error: " + playerName + " not found.");

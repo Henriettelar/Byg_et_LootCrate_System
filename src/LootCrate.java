@@ -34,26 +34,21 @@ public class LootCrate {
     public String getCrate() {
         return crate;
     }
-    public static void ListOfCrates(){
-        System.out.println("---Available crates---");
-        for (Map.Entry<String, LootCrate> entry : crateList.entrySet()) {
-            LootCrate crate = entry.getValue();
-            System.out.println("-" + crate.getCrate() + " (" + crate.getCratePrice() + " credits)");
-        }
+    public static Map<String, LootCrate> ListOfCrates(){
+        return new HashMap<>(crateList);
     }
 
-    public void openCrate(Player player) throws NotEnoughCreditsException {
+    public String openCrate(Player player) throws NotEnoughCreditsException {
         player.openLootCrate(this);
         String reward = getRandomReward();
         player.addItem(reward);
-        System.out.println("Player " + player.getUsername() + " received " + reward + "!");
+        return reward;
     }
 
     //Metode til at vælge en reward til crate baseret på tilfældighed men stadig med større chance ud fra hvad spilleren åbner
     private String getRandomReward() {
-        Random rand = new Random();
 
-        // Weighted choice based on crate type
+        // Weighted choice baseret på crate type (for at ligne virkelige crates fra spil)
         if (crate.equalsIgnoreCase("Normal crate")) {
             return chooseWeighted(
                     new String[][]{itemsForNormal, itemsForRare, itemsForEpic, itemsForLegendary},

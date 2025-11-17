@@ -190,6 +190,7 @@ public class Main {
             System.out.println("Unexpected error: " + e.getMessage());
         }
     }
+
     //Checked exception for at se om spilleren er der
     private static Player findPlayerByName(String name) throws PlayerNotFoundException {
         Player player = players.get(name);

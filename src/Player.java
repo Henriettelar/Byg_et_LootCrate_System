@@ -45,7 +45,6 @@ public class Player {
         return new ArrayList<>(inventory);
     }
 
-
     public void openLootCrate(LootCrate crate) throws NotEnoughCreditsException {
             checkCredits(credits, crate);
             credits = credits - crate.getCratePrice(); //Trækker ens credits fra når en crate er åbnet

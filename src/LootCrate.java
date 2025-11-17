@@ -21,7 +21,6 @@ public class LootCrate {
             "Golden Sword", "Stealth Potion", "Stealth Armor", "Spiked Mace"
     };
 
-
     public LootCrate(String crate, int credits) {
         this.crate = crate;
         this.credits = credits;
